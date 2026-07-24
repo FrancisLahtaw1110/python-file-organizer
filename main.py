@@ -26,3 +26,5 @@ def main():
         display_text("Folder Found 🥳")
     else:
         display_text("OOOPs! Folder does not exist.")
+        
+main()
