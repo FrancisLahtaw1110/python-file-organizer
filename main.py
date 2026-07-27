@@ -6,7 +6,7 @@ def display_text(msg):
     print("-"*25)
 
 def get_folder_path():
-    folder_path = input("Enter folder path: ")
+    folder_path = input("Enter folder path: ").strip("\"'")
     return folder_path
 
 def validate_folder(folder_path):
@@ -20,7 +20,7 @@ def scan_folder(folder_path):
     items = os.listdir(folder_path)
     return items
 
-def display_items(folder_path,items):
+def display_files(folder_path,items):
     found_file = False
     
     for item in items:
@@ -41,7 +41,7 @@ def main():
     if validate_folder(folder_path):
         display_text("Folder Found 🥳")
         items = scan_folder(folder_path)
-        display_items(folder_path,items)
+        display_files(folder_path,items)
     else:
         display_text("OOOPs! Folder does not exist.")
         
