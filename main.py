@@ -27,12 +27,21 @@ def display_files(folder_path,items):
         item_path = os.path.join(folder_path,item)
         
         if os.path.isfile(item_path):
+            extension = get_extension(item)
             print(item)
+            print("Extension:", extension)
+            print("\n")
             found_file = True
             
     if not found_file:
         display_text("NO Files")
-    
+        
+def get_extension(filename):
+        extension = os.path.splitext(filename)[1].lower()
+        if not extension:
+            return None
+        return extension
+        
 def main():
     display_text("File Organizer Started")
     
