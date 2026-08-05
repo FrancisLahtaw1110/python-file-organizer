@@ -28,8 +28,10 @@ def display_files(folder_path,items):
         
         if os.path.isfile(item_path):
             extension = get_extension(item)
+            category = get_category(extension)
             print(item)
             print("Extension:", extension)
+            print("Category:", category)
             print("\n")
             found_file = True
             
@@ -41,7 +43,35 @@ def get_extension(filename):
         if not extension:
             return None
         return extension
-        
+CATEGORY_TABLE = {
+    ".jpg": "Images",
+    ".jpeg": "Images",
+    ".png": "Images",
+
+    ".pdf": "Documents",
+    ".docx": "Documents",
+    ".txt": "Documents",
+
+    ".mp4": "Videos",
+    ".avi": "Videos",
+    ".mov": "Videos",
+
+    ".mp3": "Music",
+    ".wav": "Music",
+
+    ".zip": "Archives",
+    ".rar": "Archives",
+    
+    ".py" : "Python",
+    ".html": "HTML",
+    
+    None: "Others"
+}
+
+def get_category(extension):
+    category = CATEGORY_TABLE.get(extension, "Others")
+    return category
+
 def main():
     display_text("File Organizer Started")
     
