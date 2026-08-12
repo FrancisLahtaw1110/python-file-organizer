@@ -65,13 +65,32 @@ CATEGORY_TABLE = {
     ".py" : "Python",
     ".html": "HTML",
     
-    None: "Others"
+    
 }
 
 def get_category(extension):
     category = CATEGORY_TABLE.get(extension, "Others")
     return category
 
+def create_category_folder(folder_path,category):
+    check_folder_path = os.path.join(folder_path,category)
+    if os.path.exists(check_folder_path):
+        return True
+    else :
+        os.makedirs(check_folder_path)
+        if os.path.exists(check_folder_path):
+            return True
+        return False    
+
+def create_category_folders(folder_path,items):
+     for item in items:
+        item_path = os.path.join(folder_path,item)
+            
+        if os.path.isfile(item_path):
+            extension = get_extension(item)
+            category = get_category(extension)
+            create_category_folder(folder_path,category)
+    
 def main():
     display_text("File Organizer Started")
     
@@ -81,7 +100,9 @@ def main():
         display_text("Folder Found 🥳")
         items = scan_folder(folder_path)
         display_files(folder_path,items)
+        create_category_folders(folder_path,items)
     else:
         display_text("OOOPs! Folder does not exist.")
         
 main()
+
