@@ -1,9 +1,10 @@
 import os
+import shutil
 
 def display_text(msg):
-    print("-"*25)
+    print("-"* len(msg))
     print(msg)
-    print("-"*25)
+    print("-"*len(msg))
 
 def get_folder_path():
     folder_path = input("Enter folder path: ").strip("\"'")
@@ -90,7 +91,34 @@ def create_category_folders(folder_path,items):
             extension = get_extension(item)
             category = get_category(extension)
             create_category_folder(folder_path,category)
+
+def move_files(folder_path,items):
+    for item in items:
+        source_path = os.path.join(folder_path, item)
+        
+        if os.path.isfile(source_path):
+            movefile(folder_path,item)
+        
+def movefile(folder_path,item):
+    source_path = os.path.join(folder_path, item)
+    extension = get_extension(item)
+    category = get_category(extension)
+    destination_folder = os.path.join(folder_path,category)
+    destination_path = os.path.join(destination_folder,item)
+    destination_path = get_unique_destination(destination_path)
+    shutil.move(source_path,destination_path)
     
+def get_unique_destination(destination_path):
+    counter = 1
+    filename, extension = os.path.splitext(destination_path)
+    while os.path.exists(destination_path):
+        destination_path=filename + "_" + str(counter) + extension
+        counter+=1
+    return destination_path
+        
+        
+
+
 def main():
     display_text("File Organizer Started")
     
@@ -101,8 +129,14 @@ def main():
         items = scan_folder(folder_path)
         display_files(folder_path,items)
         create_category_folders(folder_path,items)
+        move_files(folder_path, items)
     else:
         display_text("OOOPs! Folder does not exist.")
         
-main()
+#main()
+test_path = "/Users/thantunaung/file_organizer_test"
 
+result = movefile(test_path,"photo.jpg")
+
+
+print(os.listdir("/Users/thantunaung/file_organizer_test/Images"))
