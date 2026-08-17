@@ -133,10 +133,4 @@ def main():
     else:
         display_text("OOOPs! Folder does not exist.")
         
-#main()
-test_path = "/Users/thantunaung/file_organizer_test"
-
-result = movefile(test_path,"photo.jpg")
-
-
-print(os.listdir("/Users/thantunaung/file_organizer_test/Images"))
+main()
